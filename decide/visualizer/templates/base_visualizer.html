@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Decide!{% endblock %}</title>
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+
+        {% block extrabody %}{% endblock %}
+    </body>
+    <style>
+            body {
+                font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            }
+            section {
+                position: absolute;
+                top: 5%;
+                left: 5%;
+            }
+            .poll-option {
+                margin-bottom: 25px;
+            }
+            span.poll-option__label {
+                font-weight: bold;
+            }
+        </style>
+</html>
