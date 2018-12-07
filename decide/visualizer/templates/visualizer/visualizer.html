@@ -1,34 +1,49 @@
 {% extends "base_visualizer.html" %}
 {% load i18n static %}
-    {% block content %}
-    <section>
-        <h1>{{ voting.id }} - {{ voting.name }}</h1>
 
-        {% if not voting.start_date %}
-            <h2>{% trans 'Voting not started' %}</h2>
-        {% elif not voting.end_date %}
-            <h2>{% trans 'Voting is opened' %}</h2>
-        {% else %}
-            <h2>{% trans 'Results: ' %}</h2>
-            <ul>
-                {% for option in voting.postproc %}
-                <div class="poll-option">
-                    <span class="poll-option__label">{{option.option}}</span>
-                    <table class="poll-option__result">
-                            <tr>
-                              <td>{{option.postproc}}</td>
-                              <td>
-                                <span></span>
-                                <span style="width: 25%;"></span>
-                              </td>
-                              <td>{{option.postproc}}</td>
-                              <td>{{option.votes}} 'Votes'</td>
-                            </tr>
-                          </table>
-                    <li>{{option.option}}: {{option.postproc}} <span>({{option.votes}})</span></li>
+    {% block content %}
+    <div>
+        <section>
+            <div class="headResults">
+                <h1 class="headText">Resultados</h1>
+                <div class="headResults2">
+                    <h2 class="votingName">{{ voting.name }}</h2>
+                    <p>Id: {{voting.id }}</p>
                 </div>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </section>
+            </div>
+            <div class="sectionBody">
+                {% if not voting.start_date %}
+                    <h2>{% trans 'Voting not started' %}</h2>
+                {% elif not voting.end_date %}
+                    <h2>{% trans 'Voting is opened' %}</h2>
+                {% else %}
+                        <div class="poll-option">
+                                <table class="poll-option__result">
+                                    <tr>
+                                        <th class="optionName">Opción</th>
+                                        <th>Votos postprocesado</th>
+                                        <th>Votos totales</th>
+                                    </tr>
+                                    {% for option in voting.postproc %}
+                                        <tr>
+                                            <td class="optionName">
+                                                <div class="options">
+                                                    {{option.option}}
+                                                </div>
+                                            </td>
+                                            </div>
+                                            <td>
+                                                {{option.postproc}}
+                                            </td>
+                                            <td>
+                                                {{option.votes}}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                        </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
     {% endblock %}
