@@ -8,13 +8,16 @@
         <h2>{% trans 'Voting not started' %}</h2>
     {% elif not voting.end_date %}
         <h2>{% trans 'Voting is opened' %}</h2>
-    {% else %}
-        <h2>{% trans 'Results: ' %}</h2>
-        <ul>
-            {% for option in voting.postproc %}
-                <li>{{option.option}}: {{option.postproc}} <span>({{option.votes}})</span></li>
-            {% endfor %}
-        </ul>
+    {% elif voting.end_date %}
+        <h2>{% trans 'Voting is closed' %}</h2>
     {% endif %}
+        
+    <h2>{% trans 'Results: ' %}</h2>
+    <ul>
+        {% for option in voting.postproc %}
+            <li>{{option.option}}: {{option.postproc}} <span>({{option.votes}})</span></li>
+        {% endfor %}
+    </ul>
+    
 
 {% endblock %}
