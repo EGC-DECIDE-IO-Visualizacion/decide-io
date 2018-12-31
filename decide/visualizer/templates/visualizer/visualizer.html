@@ -1,7 +1,6 @@
 {% extends "base_visualizer.html" %}
 {% load i18n static %}
 
-
     {% block content %}
     <div>
         <section>
@@ -19,32 +18,32 @@
                     <h2>{% trans 'Voting is opened' %}</h2>
                 {% elif voting.end_date %}
                     <h2>{% trans 'Voting is closed' %}</h2>
-                {% endif %
-                <div class="poll-option">
-                    <table class="poll-option__result">
-                        <tr>
-                            <th class="optionName">Opción</th>
-                            <th>Votos postprocesado</th>
-                            <th>Votos totales</th>
-                        </tr>
-                        {% for option in voting.postproc %}
-                        <tr>
-                            <td class="optionName">
-                                <div class="options">
-                                    {{option.option}}
-                                </div>
-                            </td>
-                            </div>
-                            <td>
-                                {{option.postproc}}
-                            </td>
-                            <td>
-                                {{option.votes}}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                {% endif %}
+                        <div class="poll-option">
+                                <table class="poll-option__result">
+                                    <tr>
+                                        <th class="optionName">Opción</th>
+                                        <th>Votos postprocesado</th>
+                                        <th>Votos totales</th>
+                                    </tr>
+                                    {% for option in voting.postproc %}
+                                        <tr>
+                                            <td class="optionName">
+                                                <div class="options">
+                                                    {{option.option}}
+                                                </div>
+                                            </td>
+                                            </div>
+                                            <td>
+                                                {{option.postproc}}
+                                            </td>
+                                            <td>
+                                                {{option.votes}}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                        </div>
                 
             </div>
         </section>
