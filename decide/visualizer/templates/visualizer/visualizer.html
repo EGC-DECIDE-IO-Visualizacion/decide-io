@@ -41,6 +41,200 @@
                                         </tr>
                                     {% endfor %}
                                 </table>
+                                </div>
+                                <table >
+                                    <caption>Estadisticas</caption>
+                                    <tr>
+                                        <th class="optionName">Opción</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Total de personas en el censo.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.numero_personas_censo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Total de personas que han votado.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.numero_personas_votado}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de participación.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.porcentaje_participacion}}%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de personas en el censo con menos de 20 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.rango_menor_20}}
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de personas en el censo con entre 20 y 40 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.rango_entre_20_40}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de personas en el censo con entre 40 y 60 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.rango_entre_40_60}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de personas en el censo con más de 60 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.rango_mayor_60}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Edad media de los votantes del censo.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.edad_media}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de personas que han votado con menos de 20 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.porcentaje_rango_menor_20}}%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de personas que han votado con entre 20 y 40 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.porcentaje_rango_entre_20_40}}%
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de personas que han votado con entre 40 y 60 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.porcentaje_rango_entre_40_60}}%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de personas que han votado con más de 60 años.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.porcentaje_rango_mayor_60}}%
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de hombres en el censo. 
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.numero_hombres}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Número de mujeres en el censo.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.numero_mujeres}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de hombres que han votado.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                            {{store.porcentaje_votos_hombres}}%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="optionName">
+                                            <div class="options">
+                                                Porcentaje de mujeres que han votado.
+                                            </div>
+                                        </td>
+                                        </div>
+                                        <td>
+                                                {{store.porcentaje_votos_mujeres}}%
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
                         </div>
                 {% endif %}
             </div>
