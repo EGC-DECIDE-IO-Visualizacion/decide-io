@@ -39,7 +39,7 @@ class VotingView(generics.ListCreateAPIView):
         auth, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
         auth.save()
-        voting.auths.add(auth)
+        voting.auths.add(auth)        
         return Response({}, status=status.HTTP_201_CREATED)
 
 

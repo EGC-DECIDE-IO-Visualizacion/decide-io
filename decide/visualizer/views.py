@@ -11,14 +11,14 @@ class VisualizerView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         vid = kwargs.get('voting_id', 0)
-        
+
         try:
             r = mods.get('voting', params={'id': vid})
             context['voting'] = r[0]
             context['voting']['type_of_voting']='normal' #<------ codigo temporal para evitar excepciones 
         except:
             raise Http404
-
+            
         #codigo temporal a la espera del modulo de voting
         if context['voting']['type_of_voting'] == 'priority':
             self.arrange_votes(context['voting'])
