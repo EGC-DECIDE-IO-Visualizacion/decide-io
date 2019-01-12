@@ -2,12 +2,39 @@
 {% load i18n static %}
 
     {% block content %}
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+    
+    window.onload = function () {
+        var dps = [];
+        var json = '{{voting}}'; 
+        var v = JSON.parse(json);
+        alert(v.title);
+
+        for(option in v.postproc ) {
+            dps.push({label: option.option , y: option.votes });
+        }
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title:{
+                text: "Resultados"              
+            },
+            data: [              
+            {
+                type: "column",
+                dataPoints: dps
+            }
+            ]
+        });
+        chart.render();
+    }
+    </script>
+
     <div>
         <section>
             <div class="headResults">
                 <h1 class="headText">Resultados</h1>
                 <div class="headResults2">
-                    <h2 class="votingName">{{ voting.name }}</h2>
+                    <h2 class="votingName">{{voting}}</h2>
                     <p>Id: {{voting.id }}</p>
                 </div>
             </div>
@@ -41,9 +68,11 @@
                                         </tr>
                                     {% endfor %}
                                 </table>
-                        </div>
+                        </div>    
                 {% endif %}
             </div>
+
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
         </section>
     </div>
     {% endblock %}
