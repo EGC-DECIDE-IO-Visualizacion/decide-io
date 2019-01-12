@@ -19,7 +19,6 @@ from django.test import TestCase
 
 #Create your tests here.
 
-
 # class MoreStatsAPIVotingTestCase(BaseTestCase):
 
 #     def test_create_voting(self):

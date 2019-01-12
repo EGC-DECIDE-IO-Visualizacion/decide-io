@@ -5,7 +5,7 @@ from django.http import Http404
 from base import mods
 from datetime import datetime
 
-# Se ha tenido que implementar un metodo de ejemplo, el equipo del modulo Voting, no ha podido realizar el metodo "tally", que actualiza el recuento de los votos z
+# Se ha tenido que implementar un metodo de ejemplo, el equipo del modulo Voting, no ha podido realizar el metodo "tally", que actualiza el recuento de los votos 
 def updateVotingExample(voting_id):
     text = "La votacion con el ID: %d se ha actualizado el {:%B %d, %Y}".format(datetime.now()) %voting_id
 
