@@ -21,7 +21,7 @@ from django.test import TestCase
 #Create your tests here.
 
 
-# class MoreStatsAPIVotingTestCase(BaseTestCase):
+# class UpdateVotingTestCase(BaseTestCase):
 
 #     def test_create_voting(self):
 
