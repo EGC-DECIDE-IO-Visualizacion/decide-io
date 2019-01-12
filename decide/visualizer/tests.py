@@ -24,7 +24,7 @@ from django.test import TestCase
 # class UpdateVotingTestCase(BaseTestCase):
 
 #     def test_create_voting(self):
-
+#
 #         #primero creamos una votacion
 
 #         q = Question(desc='test question')
