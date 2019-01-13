@@ -28,7 +28,6 @@ class VisualizerView(TemplateView):
             context['voting']['type_of_voting']='normal' #<------ codigo temporal para evitar excepciones 
             
             v = mods.get('store/stats/{}'.format(vid))
-            
             context['store'] = v
 
             context['update'] = update

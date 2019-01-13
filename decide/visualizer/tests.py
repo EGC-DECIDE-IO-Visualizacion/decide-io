@@ -109,7 +109,7 @@ class MoreStatsAPIVotingTestCase(BaseTestCase):
         response = self.client.get('/visualizer/{}/'.format(voting.pk))
         self.assertEqual(response.status_code, 200)
 
-
+#
 # class UpdateVotingTestCase(BaseTestCase):
 
 #     def test_create_voting(self):
