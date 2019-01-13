@@ -13,7 +13,6 @@ def updateVotingExample(voting_id):
     
     
 
-
 class VisualizerView(TemplateView):
     template_name = 'visualizer/visualizer.html'
 

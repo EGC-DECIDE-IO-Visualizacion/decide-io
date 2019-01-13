@@ -2,12 +2,39 @@
 {% load i18n static %}
 
     {% block content %}
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+    
+        window.onload = function () {
+            var dps = [];
+
+            {% for option in voting.postproc %}
+                dps.push({ label: "{{option.option}}" , y: {{option.votes}} });
+            {% endfor %}
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+            backgroundColor: "#e6eeff",
+            title: {
+                text: ""
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0",
+                indexLabel: "{label} {y}",
+                dataPoints: dps
+            },]
+        });
+
+            chart.render();
+        }
+    </script>
     <div>
         <section>
             <div class="headResults">
                 <h1 class="headText">Resultados</h1>
                 <div class="headResults2">
-                    <h2 class="votingName">{{ voting.name }}</h2>
+                    <h2 class="votingName">{{voting.name}}</h2>
                     <p>Id: {{voting.id }}</p>
                 </div>
             </div>
@@ -66,6 +93,8 @@
                                         {% endfor %}
                                     {% endif %}
                                 </table>
+                                </div>
+                                <div id="chartContainer" style="height: 300px; width: 100%; background-color:#99bbff;">
                                 </div>
                                 <table >
                                     <caption>Estadisticas</caption>
@@ -263,6 +292,10 @@
                         </div>
                 
             </div>
+
+            <br/>
+            <br/>
+
         </section>
     </div>
     {% endblock %}
