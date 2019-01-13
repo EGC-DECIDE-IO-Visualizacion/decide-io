@@ -16,6 +16,8 @@ from mixnet.models import Key
 from voting.models import Question
 from voting.models import Voting
 
+from store.models import Profile
+import json
 
 class StoreTextCase(BaseTestCase):
 
@@ -193,3 +195,134 @@ class StoreTextCase(BaseTestCase):
         self.voting.save()
         response = self.client.post('/store/', data, format='json')
         self.assertEqual(response.status_code, 401)
+    
+    def test_stats(self):
+        #Creating Profiles
+        user1 = self.get_or_create_user(1)
+        user2 = self.get_or_create_user(2)
+        user3 = self.get_or_create_user(3)
+        user4 = self.get_or_create_user(4)
+        user5 = self.get_or_create_user(5)
+
+        user1.profile.sexo = "F"
+        user2.profile.sexo = "M"
+        user3.profile.sexo = "M"
+        user4.profile.sexo = "F"
+        user5.profile.sexo = "F"
+
+        user1.profile.lugar = "Sevilla"
+        user2.profile.lugar = "Sevilla"
+        user3.profile.lugar = "Madrid"
+        user4.profile.lugar = "Barcelona"
+        user5.profile.lugar = "Barcelona"
+
+        user1.profile.fecha_nacimiento = datetime.datetime(1997, 4, 7)
+        user2.profile.fecha_nacimiento = datetime.datetime(1985, 4, 7)
+        user3.profile.fecha_nacimiento = datetime.datetime(1930, 4, 7)
+        user4.profile.fecha_nacimiento = datetime.datetime(1992, 4, 7)
+        user5.profile.fecha_nacimiento = datetime.datetime(1992, 4, 7)
+
+        user1.save()
+        user2.save()
+        user3.save()
+        user4.save()
+        user5.save()
+
+        users = [user1, user2, user3, user4]
+
+        #Voting + Votes
+        VOTING_PK = 345
+        CTE_A = 96
+        CTE_B = 184
+
+        self.gen_voting(VOTING_PK)
+        
+        for user in users:
+            census = Census(voting_id=VOTING_PK, voter_id=user.pk)
+            census.save()
+
+            data = {
+                "voting": VOTING_PK,
+                "voter": user.pk,
+                "vote": { "a": CTE_A, "b": CTE_B }
+            }
+
+            self.login(user=user.username)
+            response = self.client.post('/store/', data, format='json')
+            self.assertEqual(response.status_code, 200)
+
+        census = Census(voting_id=VOTING_PK, voter_id=user5.pk)
+        census.save()
+
+        #Testing API
+        response = self.client.get('/store/stats/{}/'.format(VOTING_PK), format='json')
+        self.assertEqual(response.status_code, 200)
+
+        stats = json.loads(response.content)
+        
+        self.assertEqual(stats['numero_personas_censo'], 5)
+        self.assertEqual(stats['numero_personas_votado'], 4)
+        self.assertEqual(stats['porcentaje_participacion'], 0.8)
+        self.assertEqual(stats['rango_menor_20'], 0)
+        self.assertEqual(stats['rango_entre_20_40'], 4)
+        self.assertEqual(stats['rango_entre_40_60'], 0)
+        self.assertEqual(stats['rango_mayor_60'], 1)
+        self.assertEqual(stats['edad_media'], 38.8)
+        self.assertEqual(stats['porcentaje_rango_menor_20'], 0)
+        self.assertEqual(stats['porcentaje_rango_entre_20_40'], 0.75)
+        self.assertEqual(stats['porcentaje_rango_entre_40_60'], 0)
+        self.assertEqual(stats['porcentaje_rango_mayor_60'], 1.0)
+        self.assertEqual(stats['numero_hombres'], 2)
+        self.assertEqual(stats['numero_mujeres'], 3)
+        self.assertEqual(stats['porcentaje_votos_hombres'], 1.0)
+        self.assertEqual(stats['porcentaje_votos_mujeres'], 2/3)
+        self.assertEqual(stats['census_users_lugares_dict']['Sevilla'], 2)
+        self.assertEqual(stats['census_users_lugares_dict']['Madrid'], 1)
+        self.assertEqual(stats['census_users_lugares_dict']['Barcelona'], 2)
+        self.assertEqual(stats['porcentaje_votes_users_lugares_dict']['Sevilla'], 1.0)
+        self.assertEqual(stats['porcentaje_votes_users_lugares_dict']['Madrid'], 1.0)
+        self.assertEqual(stats['porcentaje_votes_users_lugares_dict']['Barcelona'], 0.5)
+
+        self.logout()
+
+    def test_modify_vote(self):
+        VOTING_PK = 603
+        CTE_A1 = 20
+        CTE_B1 = 50
+        CTE_A2 = 40
+        CTE_B2 = 90
+        census = Census(voting_id=VOTING_PK, voter_id=1)
+        census.save()
+        self.gen_voting(VOTING_PK)
+        data = {
+            "voting": VOTING_PK,
+            "voter": 1,
+            "vote": { "a": CTE_A1, "b": CTE_B1 }
+        }
+        user = self.get_or_create_user(1)
+        self.login(user=user.username)
+        response = self.client.post('/store/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Vote.objects.count(), 1)
+        self.assertEqual(Vote.objects.first().voting_id, VOTING_PK)
+        self.assertEqual(Vote.objects.first().voter_id, 1)
+        self.assertEqual(Vote.objects.first().a, CTE_A1)
+        self.assertEqual(Vote.objects.first().b, CTE_B1)
+
+        self.logout()
+        data = {
+            "voting": VOTING_PK,
+            "voter": 1,
+            "vote": { "a": CTE_A2, "b": CTE_B2 }
+        }
+        self.login(user=user.username)
+        response = self.client.post('/store/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Vote.objects.count(), 1)
+        self.assertEqual(Vote.objects.first().voting_id, VOTING_PK)
+        self.assertEqual(Vote.objects.first().voter_id, 1)
+        self.assertEqual(Vote.objects.first().a, CTE_A2)
+        self.assertEqual(Vote.objects.first().b, CTE_B2)
+
