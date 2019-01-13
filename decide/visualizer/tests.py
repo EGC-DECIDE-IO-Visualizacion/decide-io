@@ -99,7 +99,7 @@ class MoreStatsAPIVotingTestCase(BaseTestCase):
         voting.start_date = timezone.now()
         voting.save()
 
-        self.create_voters(voting.pk)
+        self.create_voters(voting)
 
         #Comprobamos que la llamada a la API de store funciona
         response = self.client.get('/store/stats/{}/'.format(voting.pk))
