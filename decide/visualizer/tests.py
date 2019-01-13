@@ -92,11 +92,11 @@ class MoreStatsAPIVotingTestCase(BaseTestCase):
         voting.save()
 
         #Comprobamos que la llamada a la API de store funciona
-        response = self.client.get('/store/stats/{}/'.format(voting.pk), data, format='json')
+        response = self.client.get('/store/stats/{}/'.format(voting.pk))
         self.assertEqual(response.status_code, 200)
        
         #Comprobamos que el visualizer recibe el json que se optione al realizar la llamada a la API
-        response = self.client.get('/visualizer/{}/'.format(voting.pk), data, format='json')
+        response = self.client.get('/visualizer/{}/'.format(voting.pk))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response.json(), 'store')
 
