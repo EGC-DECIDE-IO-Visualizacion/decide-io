@@ -68,6 +68,14 @@ from visualizer.views import VisualizerView
 
 class MoreStatsAPIVotingTestCase(BaseTestCase):
 
+    def create_voters(self, v):
+        for i in range(100):
+            u, _ = User.objects.get_or_create(username='testvoter{}'.format(i))
+            u.is_active = True
+            u.save()
+            c = Census(voter_id=u.id, voting_id=v.id)
+            c.save()
+
     def test_create_voting(self):
 
         #primero creamos una votacion
@@ -90,6 +98,8 @@ class MoreStatsAPIVotingTestCase(BaseTestCase):
         voting.create_pubkey()
         voting.start_date = timezone.now()
         voting.save()
+
+        create_voters(voting.pk)
 
         #Comprobamos que la llamada a la API de store funciona
         response = self.client.get('/store/stats/{}/'.format(voting.pk))
